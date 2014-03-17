@@ -1,2 +1,3 @@
 #ignoring node module
 node_modules
+bower_components

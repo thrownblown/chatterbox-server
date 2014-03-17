@@ -44,7 +44,7 @@ app.send = function(message){
 
   $.ajax({
     // always use this url
-    url: 'https://api.parse.com/1/classes/chatterbox',
+    url: 'http://127.0.0.1:3000/1/classes/chatterbox',
     type: 'POST',
     data: JSON.stringify(message),
     contentType: 'application/json',
@@ -69,7 +69,7 @@ app.fetch = function(){
   // }
 
   $.ajax({
-    url: 'https://api.parse.com/1/classes/chatterbox/',
+    url: 'http://127.0.0.1:3000/1/classes/chatterbox/',
     type: 'GET',
     data: data,
     dataType: 'json',

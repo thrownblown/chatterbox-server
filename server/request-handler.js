@@ -11,6 +11,10 @@ var handleRequest = function(request, response) {
 
   /* Documentation for both request and response can be found at
    * http://nodemanual.org/0.8.14/nodejs_ref_guide/http.html */
+  if(request.method === 'POST'){
+    console.log('Message sent');
+  }
+  //console.log(Object.keys(request));
 
   console.log("Serving request type " + request.method + " for url " + request.url);
 
@@ -44,4 +48,9 @@ var defaultCorsHeaders = {
   "access-control-max-age": 10 // Seconds.
 };
 
+
+
+
+
+//export for the import (require)
 module.exports.handleRequest = handleRequest;
