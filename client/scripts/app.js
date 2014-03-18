@@ -41,7 +41,6 @@ app.send = function(message){
   }
 
   app.myMessages.push(message);
-console.log('here');
   $.ajax({
     // always use this url
     url: 'http://127.0.0.1:3000/classes/messages/',
@@ -74,6 +73,7 @@ app.fetch = function(){
     data: data,
     dataType: 'json',
     success: function (data) {
+      app.clearMessages();
       _.each(data.results, function(message) {
         if ((message.username !== undefined &&
              message.text !== undefined &&
@@ -103,7 +103,7 @@ app.fetch = function(){
         }
       });
 
-      app.lastGet = new Date(Date.parse(data.results[0].createdAt));
+      //app.lastGet = new Date(Date.parse(data.results[0].createdAt));
 
       // Display unreadCount
       _.each(app.rooms, function(room, roomName) {

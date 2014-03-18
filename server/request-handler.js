@@ -11,7 +11,9 @@ var statusCode;
 var storageLocations = {
   '/log': true,
   '/classes/room1': true,
-  '/send': true
+  '/send': true,
+  '/classes/messages/': true,
+  '/classes/messages/?order=-createdAt': true
 };
 
 var handler = function(request, response) {

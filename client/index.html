@@ -27,13 +27,14 @@
         <div class="chat col-lg-8"></div>
         <div class="rooms column col-lg-4">
           <input type="text" class="newRoom">
-          <input type="submit" value="Add Room">
+          <input type="submit" value="Add Room" onclick="
+          app.addRoom($('.newRoom').val())">
         </div>
       </div>
 
       <div>
         <input type="text" class="submission"><br>
-        <input type="submit" value="Send Message">
+        <input type="submit" value="Send Message" onclick="app.send()">
       </div>
       </div>
     </div>
