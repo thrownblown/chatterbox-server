@@ -5,15 +5,17 @@
  * this file and include it in basic-server.js so that it actually works.
  * *Hint* Check out the node module documentation at http://nodejs.org/api/modules.html. */
 
-var handleRequest = function(request, response) {
+var storage = [];
+var responseBody;
+var statusCode;
+
+var handler = function(request, response) {
   /* the 'request' argument comes from nodes http module. It includes info about the
   request - such as what URL the browser is requesting. */
 
   /* Documentation for both request and response can be found at
    * http://nodemanual.org/0.8.14/nodejs_ref_guide/http.html */
-  var storage = [];
-  var responseBody;
-  var statusCode;
+
 
   console.log('Serving request type ' + request.method + ' for url ' + request.url);
 
@@ -35,10 +37,9 @@ var handleRequest = function(request, response) {
 
 
     request.on('data', function(data){
-      console.log(data);
-      console.log(data.toString());
+
       storage.push(JSON.parse(data.toString()));
-      console.log('thois be storageee  ', storage);
+
     });
 
     statusCode = 201;
@@ -74,4 +75,4 @@ var handleRequest = function(request, response) {
  * different domain.) */
 
 //export for the import (require)
-module.exports.handleRequest = handleRequest;
+module.exports.handler = handler;
