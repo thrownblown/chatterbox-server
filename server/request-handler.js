@@ -8,6 +8,11 @@
 var storage = [];
 var responseBody;
 var statusCode;
+var storageLocations = {
+  '/log': true,
+  '/classes/room1': true,
+  '/send': true
+};
 
 var handler = function(request, response) {
   /* the 'request' argument comes from nodes http module. It includes info about the
@@ -39,7 +44,7 @@ var handler = function(request, response) {
     request.on('data', function(data){
 
       storage.push(JSON.parse(data.toString()));
-
+      storageLocations[request.url] = true;
     });
 
     statusCode = 201;
@@ -51,11 +56,13 @@ var handler = function(request, response) {
     console.log('storage', storage);
     responseBody = { 'results': storage };
     statusCode = 200;
+    if(storageLocations[request.url] === undefined && request.method ==='GET'){
+      statusCode = 404;
+    }
   }
 
-  // if (request.method=== 'GET' && (request.url!== '/classes/messages/' || request){
-  //   statusCode = 404;
-  // }
+
+  //if (request.url.indexOf('/classes') === -1 || request.url.indexOf('/log') === -1){
   /* .writeHead() tells our server what HTTP status code to send back */
   response.writeHead(statusCode, headers);
 
