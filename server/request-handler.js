@@ -32,11 +32,13 @@ var handleRequest = function(request, response) {
   headers['Content-Type'] = 'text/plain';
 
   if (request.method==='POST'){
-    //what to push?
-    //console.log(data);
-    // storage.push(request.data);
+
+
     request.on('data', function(data){
       console.log(data);
+      console.log(data.toString());
+      storage.push(JSON.parse(data.toString()));
+      console.log('thois be storageee  ', storage);
     });
 
     statusCode = 201;
