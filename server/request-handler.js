@@ -11,21 +11,48 @@ var handleRequest = function(request, response) {
 
   /* Documentation for both request and response can be found at
    * http://nodemanual.org/0.8.14/nodejs_ref_guide/http.html */
-  if(request.method === 'POST'){
-    console.log('Message sent');
-  }
-  //console.log(Object.keys(request));
+  var storage = [];
+  var responseBody;
+  var statusCode;
 
-  console.log("Serving request type " + request.method + " for url " + request.url);
+  console.log('Serving request type ' + request.method + ' for url ' + request.url);
 
-  var statusCode = 200;
 
   /* Without this line, this server wouldn't work. See the note
    * below about CORS. */
+
+  var defaultCorsHeaders = {
+    'access-control-allow-origin': '*',
+    'access-control-allow-methods': 'GET, POST, PUT, DELETE, OPTIONS',
+    'access-control-allow-headers': 'content-type, accept',
+    'access-control-max-age': 10 // Seconds.
+  };
   var headers = defaultCorsHeaders;
 
-  headers['Content-Type'] = "text/plain";
+  headers['Content-Type'] = 'text/plain';
 
+  if (request.method==='POST'){
+    //what to push?
+    //console.log(data);
+    // storage.push(request.data);
+    request.on('data', function(data){
+      console.log(data);
+    });
+
+    statusCode = 201;
+    responseBody = '';
+    console.log('posted');
+  }
+
+  if (request.method==='GET'){
+    console.log('storage', storage);
+    responseBody = { 'results': storage };
+    statusCode = 200;
+  }
+
+  // if (request.method=== 'GET' && (request.url!== '/classes/messages/' || request){
+  //   statusCode = 404;
+  // }
   /* .writeHead() tells our server what HTTP status code to send back */
   response.writeHead(statusCode, headers);
 
@@ -33,7 +60,9 @@ var handleRequest = function(request, response) {
    * anything back to the client until you do. The string you pass to
    * response.end() will be the body of the response - i.e. what shows
    * up in the browser.*/
-  response.end("Hello, World!");
+
+  response.end(JSON.stringify(responseBody));
+  //response.end(JSON.stringify({'results':['Hello, World!']}));
 };
 
 /* These headers will allow Cross-Origin Resource Sharing (CORS).
@@ -41,16 +70,6 @@ var handleRequest = function(request, response) {
  * are on different domains. (Your chat client is running from a url
  * like file://your/chat/client/index.html, which is considered a
  * different domain.) */
-var defaultCorsHeaders = {
-  "access-control-allow-origin": "*",
-  "access-control-allow-methods": "GET, POST, PUT, DELETE, OPTIONS",
-  "access-control-allow-headers": "content-type, accept",
-  "access-control-max-age": 10 // Seconds.
-};
-
-
-
-
 
 //export for the import (require)
 module.exports.handleRequest = handleRequest;

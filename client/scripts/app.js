@@ -41,10 +41,10 @@ app.send = function(message){
   }
 
   app.myMessages.push(message);
-
+console.log('here');
   $.ajax({
     // always use this url
-    url: 'http://127.0.0.1:3000/1/classes/chatterbox',
+    url: 'http://127.0.0.1:3000/classes/messages/',
     type: 'POST',
     data: JSON.stringify(message),
     contentType: 'application/json',
@@ -69,7 +69,7 @@ app.fetch = function(){
   // }
 
   $.ajax({
-    url: 'http://127.0.0.1:3000/1/classes/chatterbox/',
+    url: 'http://127.0.0.1:3000/classes/messages/',
     type: 'GET',
     data: data,
     dataType: 'json',
