@@ -4,6 +4,9 @@
  * You'll have to figure out a way to export this function from
  * this file and include it in basic-server.js so that it actually works.
  * *Hint* Check out the node module documentation at http://nodejs.org/api/modules.html. */
+var fs = require('fs');
+var url = require('url');
+
 
 var storage = [];
 var responseBody;
@@ -47,6 +50,9 @@ var handler = function(request, response) {
 
       storage.push(JSON.parse(data.toString()));
       storageLocations[request.url] = true;
+      fs.appendFile('log.txt', data + '\n', function(err){
+        console.log(err + 'this happend');
+      });
     });
 
     statusCode = 201;
