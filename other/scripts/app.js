@@ -12,10 +12,10 @@ App.prototype.send = function(){
   console.log('hey send')
 
   $.ajax({
-    url:'http://127.0.0.1:3000/classes/messages/',
+    url:'http://138.91.240.56:3000/classes/messages',
     type: 'POST',
-    data: 'hello in there',
-    dataType: 'text',
+    data: JSON.stringify('hello in there'),
+    dataType: 'application/json',
 
   });
   return;
@@ -23,7 +23,7 @@ App.prototype.send = function(){
 App.prototype.fetch = function(){
   console.log('hey fetch')
   $.ajax({
-    url:'http://127.0.0.1:3000/classes/messages/',
+    url:'http://138.91.240.56:3000/classes/messages',
     type: 'GET'
 
   });
